@@ -170,6 +170,18 @@
                             { offset: 0x6ED2EC, off: [0x75], on: [0xEB] },
                         ]
                     },
+					{
+                        name: "Force unlock all music",
+                        patches: [
+                            { offset: 0x3CA730, off: [0x32, 0xC0], on: [0xB0, 0x01] },
+                        ]
+                    },
+					{
+                        name: "Remove WARNING screen",
+                        patches: [
+                            { offset: 0x3CA910, off: [0x32, 0xC0], on: [0xB0, 0x01] },
+                        ]
+                    },
 				]),
 			]);
 			new PatchContainer([
@@ -277,6 +289,7 @@
 
 
 </html>
+
 
 
 
