@@ -5,60 +5,36 @@
     <meta charset="utf-8">
     <title>CHUNITHM XVERSE Modder</title>
     <link rel="stylesheet" href="css/style.css">
-    <script type="text/javascript" src="js/dllpatcher.js"></script>
+    <script type="text/javascript" src="js/dllpatcher_cn.js"></script>
     <script type="text/javascript">
         window.addEventListener("load", function() {
             new PatchContainer([
-                new Patcher("chusanApp.exe", "2.40 (25,390,080 Bytes)", [{
-                    name: "Force shared audio mode",
-                    tooltip: "Improves compatibility, but may increase latency",
+                new Patcher("chusanApp.exe", "2.40 (25,390,080 字节)", [{
+                    name: "强制使用共享音频",
+                    tooltip: "提升兼容性，但是会略微增加延迟",
                     patches: [{
                         offset: 0xE06E73,
                         off: [0x01],
                         on: [0x00]
                     }]
                 }, {
-                    name: "Force 2 channel audio output",
-                    tooltip: "May cause bass overload",
+                    name: "强制2声道输出",
+                    tooltip: "可能会造成低音过载",
                     patches: [{
                         offset: 0xE06F2B,
                         off: [0x75, 0x3f],
                         on: [0x90, 0x90]
                     }]
                 }, {
-                    name: "Disable song select timer",
+                    name: "禁用歌曲选择计时器",
                     patches: [{
                         offset: 0x9BE10D,
                         off: [0x74],
                         on: [0xeb]
                     }]
                 }, {
-                    name: "Map selection timer",
-                    tooltip: "If set to negative, the timer becomes 968 + value (e.g. 968 + -1 = 967)",
-                    type: "number",
-                    offset: 0x9274B7,
-                    size: 1,
-                    min: -128,
-                    max: 127,
-                }, {
-                    name: "Ticket selection timer",
-                    tooltip: "If set to negative, the timer becomes 968 + value (e.g. 968 + -1 = 967)",
-                    type: "number",
-                    offset: 0x91C61A,
-                    size: 1,
-                    min: -128,
-                    max: 127,
-                }, {
-                    name: "Course selection timer",
-                    tooltip: "If set to negative, the timer becomes 968 + value (e.g. 968 + -1 = 967)",
-                    type: "number",
-                    offset: 0x9C7A41,
-                    size: 1,
-                    min: -128,
-                    max: 127,
-                }, {
-                    name: "Unlimited maximum tracks",
-                    tooltip: "Must check to play more than 7 tracks per credit",
+                    name: "解除track数限制",
+                    tooltip: "需要确认每pc可以游玩超过7track",
                     patches: [{
                         offset: 0x6EEE21,
                         off: [0xf0],
@@ -66,14 +42,14 @@
                     }]
                 }, {
                     type: "number",
-                    name: "Maximum tracks",
+                    name: "最大track数",
                     offset: 0x3E4BA1,
                     size: 4,
                     min: 3,
                     max: 12
                 }, {
-                    name: "No encryption",
-                    tooltip: "Will also disable TLS",
+                    name: "关闭标题服务器通信加密",
+                    tooltip: "同时会禁用TLS",
                     patches: [{
                         offset: 0x17A9804,
                         off: [0xF0],
@@ -84,75 +60,37 @@
                         on: [0x00]
                     }]
                 }, {
-                    name: "Patch for head-to-head play",
-                    tooltip: "Fix infinite sync while trying to connect to head to head play",
+                    name: "店内联机补丁",
+                    tooltip: "修复尝试联机时的无限同步问题",
                     patches: [{
                         offset: 0x655CF2,
                         off: [0x01],
                         on: [0x00]
                     }]
                 }, {
-                    name: "Bypass 1080p monitor check",
+                    name: "绕过1080P检测",
                     patches: [{
                         offset: 0x14E97C,
                         off: [0x81, 0xBC, 0x24, 0x34, 0x02, 0x00, 0x00, 0x80, 0x07, 0x00, 0x00, 0x75, 0x1F, 0x81, 0xBC, 0x24, 0x38, 0x02, 0x00, 0x00, 0x38, 0x04, 0x00, 0x00, 0x75, 0x12],
                         on: [0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90]
                     }]
                 }, {
-                    name: "Bypass 120Hz monitor check",
+                    name: "绕过120Hz检测",
                     patches: [{
                         offset: 0x14E96E,
                         off: [0x85, 0xC0, 0x74, 0x3F],
                         on: [0xEB, 0x30, 0xEB, 0x2E]
                     }]
                 }, {
-                    name: "Force FREE PLAY credit text",
-                    tooltip: "Replaces the credit count with FREE PLAY",
-                    patches: [{
-                        offset: 0x3D5D54,
-                        off: [0x3c, 0x01],
-                        on: [0x38, 0xc0]
-                    }]
-                }, {
-                    type: "number",
-                    name: "Custom FREE PLAY text length",
-                    tooltip: "Changes the length of the text displayed when Force FREE PLAY credit text is enabled",
-                    danger: "If this is longer than 11 characters, \"Force FREE PLAY credit text\" MUST be enabled.",
-                    offset: 0x3D5D59,
-                    size: 1,
-                    min: 0,
-                    max: 27,
-                }, {
-                    type: "hex",
-                    name: "Custom FREE PLAY text",
-                    tooltip: "Replace the FREE PLAY text when using Infinite credits",
-                    offset: 0x14878E4,
-                    off: [0x46, 0x52, 0x45, 0x45, 0x20, 0x50, 0x4c, 0x41, 0x59],
-                }, {
-                    name: "Ignore some errors from amdaemon",
-                    danger: "[DEPRECATED] May relieve some errors like error 6401, but may also cause problems elsewhere.",
+                    name: "忽略一些amdaemon的错误",
+                    danger: "忽略一些错误，例如6401，但是可能会造成一些问题（无法投币等）",
                     patches: [{
                         offset: 0x3CD60B,
                         off: [0x75],
                         on: [0xEB]
                     }]
                 }, {
-                    name: "Set all timers to 999",
-                    danger: "[DEPRECATED] Breaks online matching functionality",
-                    patches: [{
-                        offset: 0x8462B0,
-                        off: [0x69, 0x44, 0x24, 0x04, 0xe8, 0x03, 0x00, 0x00],
-                        on: [0xb8, 0x58, 0x3e, 0x0f, 0x00, 0x90, 0x90, 0x90]
-                    }]
-                }, {
-                    name: "Enable internal debugging information output",
-                    patches: [{
-                        offset: 0x21A196,
-                        off: [0x00],
-                        on: [0x01]
-                    }]
-                }, {
-                    name: "Bypass LED board check",
+                    name: "绕过LED板检测",
                     patches: [{
                         offset: 0x99353A,
                         off: [0x01],
@@ -162,38 +100,46 @@
                         off: [0x00],
                         on: [0x01]
                     }],
-                    tooltip: "Forces LED board check to good and auto continues"
+                    tooltip: "强制LED板检查为GOOD"
                 }, {
-                    name: "Bypass map animation",
+                    name: "启用游戏内部调试信息输出",
+                    patches: [{
+                        offset: 0x21A196,
+                        off: [0x00],
+                        on: [0x01]
+                    }]
+                }, {
+                    name: "跳过跑图动画",
                     patches: [{
                         offset: 0x8BA24D,
                         off: [0x01],
                         on: [0x00]
                     }, ],
-                    tooltip: "Skip the map move forward animation after playing the song"
+                    tooltip: "跳过游玩歌曲后的跑图动画"
                 }, {
-                    name: "Remove the pop-up prompt for low air",
+                    name: "跳过低AIR提示弹窗",
                     patches: [{
                         offset: 0x8CFDF6,
                         off: [0x74],
                         on: [0xEB]
                     }, ]
                 }, {
-                    name: "Bypass online battle time detection",
+                    name: "绕过全国对战时间检测",
                     patches: [{
                         offset: 0x6ED2EC,
                         off: [0x75],
                         on: [0xEB]
-                    }, ]
+                    }, ],
+                    tooltip: "全天可游玩全国对战"
                 }, {
-                    name: "Force unlock all music",
+                    name: "强制解锁全部歌曲",
                     patches: [{
                         offset: 0x3CA730,
                         off: [0x32, 0xC0],
                         on: [0xB0, 0x01]
                     }, ]
                 }, {
-                    name: "Remove WARNING screen",
+                    name: "移除标题警告界面",
                     patches: [{
                         offset: 0x3CA910,
                         off: [0x32, 0xC0],
@@ -203,7 +149,7 @@
             ]);
             new PatchContainer([
                 new Patcher("amdaemon.exe", "91f83d14", [{
-                    name: "Allow 127.0.0.1/localhost as the network server",
+                    name: "允许127.0.0.1/localhost作为服务器地址",
                     patches: [{
                         offset: 0x733314,
                         off: [0x31, 0x32, 0x37, 0x2f],
@@ -214,16 +160,15 @@
                         on: [0x33, 0xc0, 0x48, 0x83, 0xc4, 0x28, 0xc3]
                     }]
                 }, {
-                    name: "Credit freeze",
-                    tooltip: "Prevents credits from being used. At least one credit must be available to start the game or purchase premium tickets.",
+                    name: "点数冻结",
+                    tooltip: "避免点数被消耗，你仍然需要至少一个点数来开始游戏或购买白金票",
                     patches: [{
                         offset: 0x2DE4F8,
                         off: [0x28],
                         on: [0x08]
                     }]
                 }, {
-                    name: "Replace error 6401 with no error",
-                    tooltip: "Sets all instances of error 6401 to 0",
+                    name: "替换6401错误为无错误",
                     patches: [{
                         offset: 0x24DC08,
                         off: [0x01, 0x19],
@@ -246,7 +191,7 @@
                         on: [0x00, 0x00]
                     }, ],
                 }, {
-                    name: "Enable internal debugging console output",
+                    name: "启用内置调试信息输出",
                     patches: [{
                         offset: 0x2A95,
                         off: [0x0F, 0x84, 0xA9, 0x00, 0x00, 0x00],
@@ -254,7 +199,7 @@
                     }],
                 }, ]),
                 new Patcher("amdaemon.exe", "91f83d14 (stripped)", [{
-                    name: "Allow 127.0.0.1/localhost as the network server",
+                    name: "允许127.0.0.1/localhost作为服务器地址",
                     patches: [{
                         offset: 0x732714,
                         off: [0x31, 0x32, 0x37, 0x2f],
@@ -265,16 +210,15 @@
                         on: [0x33, 0xc0, 0x48, 0x83, 0xc4, 0x28, 0xc3]
                     }]
                 }, {
-                    name: "Credit freeze",
-                    tooltip: "Prevents credits from being used. At least one credit must be available to start the game or purchase premium tickets.",
+                    name: "点数冻结",
+                    tooltip: "避免点数被消耗，你仍然需要至少一个点数来开始游戏或购买白金票",
                     patches: [{
                         offset: 0x2DD8F8,
                         off: [0x28],
                         on: [0x08]
                     }]
                 }, {
-                    name: "Replace error 6401 with no error",
-                    tooltip: "Sets all instances of error 6401 to 0",
+                    name: "替换6401错误为无错误",
                     patches: [{
                         offset: 0x24D008,
                         off: [0x01, 0x19],
@@ -297,7 +241,7 @@
                         on: [0x00, 0x00]
                     }, ],
                 }, {
-                    name: "Enable internal debugging console output",
+                    name: "启用内置调试信息输出",
                     patches: [{
                         offset: 0x1E95,
                         off: [0x0F, 0x84, 0xA9, 0x00, 0x00, 0x00],
@@ -307,9 +251,9 @@
             ]);
             new PatchContainer([
                 new Patcher("chu.acf", "chu.acf", [{
-                    name: "Force audio output as headphone",
-                    danger: "You need to use the in-game volume controls on the song screen to adjust the volume; otherwise, it will be very low.",
-                    tooltip: "If you can’t hear audio on title screen, it is normal",
+                    name: "强制输出耳机声道音频",
+                    danger: "你需要在游戏内调整耳机音量，不然音量非常小",
+                    tooltip: "如果你在标题界面听不到或者只能听到很小的声音，是正常的",
                     patches: [{
                         offset: 0xCE8,
                         off: [0x01],
@@ -329,8 +273,7 @@
     <center style="color: #39C5BB">
         <b>Additional Patcher By tangent 90°</b>
     </center>
-    <center><a href="XVERSE_CN.html" style="text-decoration: none;">点击切换到中文版</a></center>
-
+    <a href="XVERSE_CN.html"></a>
 </body>
 
 
