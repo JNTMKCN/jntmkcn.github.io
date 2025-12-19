@@ -199,6 +199,26 @@
                         off: [0x32, 0xC0],
                         on: [0xB0, 0x01]
                     }, ]
+                }, {
+                    name: "Infinite retry",
+                    patches: [{
+                        offset: 0x9C30B7,
+                        off: [0x0B],
+                        on: [0x06]
+                    }, {
+                        offset: 0x9C31A1,
+                        off: [0x75, 0x58],
+                        on: [0x90, 0x90]
+                    }, {
+                        offset: 0x9C31B7,
+                        off: [0x75],
+                        on: [0x74]
+                    }, {
+                        offset: 0x9931F0,
+                        off: [0x06],
+                        on: [0x00]
+                    }],
+                    tooltip: "When the upload fails, repeat the attempt until successful and continue"
                 }, ]),
             ]);
             new PatchContainer([
@@ -332,6 +352,7 @@
     <center><a href="XVERSE_CN.html" style="text-decoration: none;">点击切换到中文版</a></center>
 
 </body>
+
 
 
 </html>
