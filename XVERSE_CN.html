@@ -145,7 +145,27 @@
                         off: [0x32, 0xC0],
                         on: [0xB0, 0x01]
                     }, ]
-                }, ]),
+                }, {
+                    name: "无限重试",
+                    patches: [{
+                        offset: 0x9C30B7,
+                        off: [0x0B],
+                        on: [0x06]
+                    }, {
+                        offset: 0x9C31A1,
+                        off: [0x75, 0x58],
+                        on: [0x90, 0x90]
+                    }, {
+                        offset: 0x9C31B7,
+                        off: [0x75],
+                        on: [0x74]
+                    }, {
+                        offset: 0x9931F0,
+                        off: [0x06],
+                        on: [0x00]
+                    }],
+                    tooltip: "当上传失败时，重复尝试直到成功为止并续关"
+                },]),
             ]);
             new PatchContainer([
                 new Patcher("amdaemon.exe", "91f83d14", [{
@@ -279,3 +299,4 @@
 
 
 </html>
+
