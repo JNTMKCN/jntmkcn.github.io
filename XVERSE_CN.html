@@ -90,18 +90,6 @@
                         on: [0xEB]
                     }]
                 }, {
-                    name: "绕过LED板检测",
-                    patches: [{
-                        offset: 0x99353A,
-                        off: [0x01],
-                        on: [0x00]
-                    }, {
-                        offset: 0x99353F,
-                        off: [0x00],
-                        on: [0x01]
-                    }],
-                    tooltip: "强制LED板检查为GOOD"
-                }, {
                     name: "启用游戏内部调试信息输出",
                     patches: [{
                         offset: 0x21A196,
@@ -299,5 +287,6 @@
 
 
 </html>
+
 
 
