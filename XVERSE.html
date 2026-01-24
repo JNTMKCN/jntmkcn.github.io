@@ -265,13 +265,6 @@
                         off: [0x01, 0x19],
                         on: [0x00, 0x00]
                     }, ],
-                }, {
-                    name: "Enable internal debugging console output",
-                    patches: [{
-                        offset: 0x2A95,
-                        off: [0x0F, 0x84, 0xA9, 0x00, 0x00, 0x00],
-                        on: [0x90, 0x90, 0x90, 0x90, 0x90, 0x90]
-                    }],
                 }, ]),
                 new Patcher("amdaemon.exe", "91f83d14 (stripped)", [{
                     name: "Allow 127.0.0.1/localhost as the network server",
@@ -316,13 +309,6 @@
                         off: [0x01, 0x19],
                         on: [0x00, 0x00]
                     }, ],
-                }, {
-                    name: "Enable internal debugging console output",
-                    patches: [{
-                        offset: 0x1E95,
-                        off: [0x0F, 0x84, 0xA9, 0x00, 0x00, 0x00],
-                        on: [0x90, 0x90, 0x90, 0x90, 0x90, 0x90]
-                    }],
                 }, ]),
             ]);
             new PatchContainer([
@@ -356,4 +342,5 @@
 
 
 </html>
+
 
